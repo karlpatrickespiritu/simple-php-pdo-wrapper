@@ -200,8 +200,8 @@ class DB {
     /*
      * builds INSERT query
      *
-     * @param   string  $sSQL
-     * @return  mixed
+     * @param   string  $sTable - table name
+     * @return  object  this class
      * */
     public function insert($sTable) {
         $this->_sChainingQuery = "INSERT INTO $sTable";
@@ -211,8 +211,8 @@ class DB {
     /*
      * builds INSERT IGNORE query
      *
-     * @param   string  $sSQL
-     * @return  mixed
+     * @param   string  $sTable - table name
+     * @return  object  this class
      * */
     public function insertIgnore($sTable) {
         $this->_sChainingQuery = "INSERT IGNORE INTO $sTable";
@@ -247,6 +247,25 @@ class DB {
 
         return $this->query($this->_sChainingQuery, $aBindParams);
     }
+
+    /*
+     * builds DELETE query
+     *
+     * @param   string  $sTable - table name
+     * @return  object  this class
+     * */
+    public function delete($sTable) {
+        $this->_sChainingQuery = "DELETE FROM $sTable";
+        return $this;
+    }
+
+    /*
+     * builds WHERE query
+     *
+     * @param   string  $sTable - table name
+     * @return  object  this class
+     * */
+    public function where($aWhereValues = []) {}
 
     /*
      * return the last inserted id
