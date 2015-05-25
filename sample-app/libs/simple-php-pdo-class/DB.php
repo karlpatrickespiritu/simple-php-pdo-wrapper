@@ -71,6 +71,11 @@ class DB {
     const TYPE_ROW_SINGLE   = 1;
     const TYPE_ROW_MULTIPLE = 2;
 
+    /*
+     * constructor method
+     *
+     * @param array $aPDOAttributes PDO attributres
+     * */
     public function __construct($aPDOAttributes = [])
     {
         $this->_aPDOAttributes = $this->_setPDOAttributes($aPDOAttributes);
@@ -203,7 +208,8 @@ class DB {
      * @param   string  $sTable - table name
      * @return  object  this class
      * */
-    public function insert($sTable) {
+    public function insert($sTable)
+    {
         $this->_sChainingQuery = "INSERT INTO $sTable";
         return $this;
     }
@@ -214,7 +220,8 @@ class DB {
      * @param   string  $sTable - table name
      * @return  object  this class
      * */
-    public function insertIgnore($sTable) {
+    public function insertIgnore($sTable)
+    {
         $this->_sChainingQuery = "INSERT IGNORE INTO $sTable";
         return $this;
     }
@@ -225,7 +232,8 @@ class DB {
      * @param   array  $aInsertValues
      * @return  mixed
      * */
-    public function values($aInsertValues = []) {
+    public function values($aInsertValues = [])
+    {
         $aInsertValuesKeys = array_keys($aInsertValues);
 
         // add fields on query
@@ -254,18 +262,58 @@ class DB {
      * @param   string  $sTable - table name
      * @return  object  this class
      * */
-    public function delete($sTable) {
+    public function delete($sTable)
+    {
         $this->_sChainingQuery = "DELETE FROM $sTable";
         return $this;
     }
 
     /*
-     * builds WHERE query
+     * builds UPDATE query
      *
      * @param   string  $sTable - table name
      * @return  object  this class
      * */
-    public function where($aWhereValues = []) {}
+    public function update($sTable)
+    {
+        $this->_sChainingQuery = "UPDATE $sTable";
+        return $this;
+    }
+
+    /*
+     * TODO::builds SET values in UPDATE query
+     *
+     * @param   string  $sTable - table name
+     * @return  object  this class
+     * */
+    public function set($sSet, $aBindParams) {}
+
+    /*
+     * builds WHERE query
+     *
+     * @param   string  $sWhere       WHERE query
+     * @param   array   $aBindParams  bind params
+     * @return  object  $this         this class
+     * */
+    public function where($sWhere, $aBindParams)
+    {
+        $this->_sChainingQuery .= " WHERE $sWhere";
+        $iDML = $this->_checkDMLType($this->_sChainingQuery);
+
+        switch($iDML) {
+            case self::TYPE_DML_DELETE:
+                return $this->query($this->_sChainingQuery, $aBindParams);
+                break;
+
+            // TODO:: update
+            case self::TYPE_DML_UPDATE:
+                return $this->query($this->_sChainingQuery, $aBindParams);
+                break;
+
+            default:
+                break;
+        }
+    }
 
     /*
      * return the last inserted id
