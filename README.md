@@ -1,4 +1,4 @@
-# simle-php-pdo-class
-A simple database class in PHP using PDO extension.
+# Simple-PHP-PDO-Wrapper-Class
+A simple database wrapper class in PHP using PDO/MYSQL extension.
 
 STILL IN DEVELOPMENT
