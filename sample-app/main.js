@@ -44,6 +44,39 @@ $(document).ready(function(){
         }
     };
 
+    /* notification object */
+    var notification = {
+        messages: {
+            ERROR: "Something wen\'t wrong. Please try again."
+        },
+        success: function (sTitle, sContent) {
+            return notification.popup(sTitle, sContent, "blue");
+        },
+        error: function (sTitle, sContent) {
+            return notification.popup(sTitle, sContent, "red");
+        },
+        warning: function (sTitle, sContent) {
+            return notification.popup(sTitle, sContent, "yellow");
+        },
+        popup: function (sTitle, sContent, sColor) {
+            var sTitle   = sTitle || "Title",
+                sContent = sContent || "Content",
+                sColor   = sColor || "green";
+
+            return new jBox('Notice', {
+                title: sTitle,
+                content: sContent,
+                width: '230px',
+                animation: { open: 'slide', close: 'flip' },
+                theme: 'TooltipDark',
+                color: sColor,
+                audio: 'libs/jbox/Source/audio/blop',
+                volume: 80,
+                zIndex: 10
+            });
+        }
+    };
+
     /* submitting add user form */
     $usersContainer.on('submit', 'form[name=add-user]', function(e){
         e.preventDefault();
@@ -55,6 +88,8 @@ $(document).ready(function(){
             if(response.success) {
                 // let's just simply reload the page after adding data
                 location.reload();
+            } else {
+                notification.error('Opps!', notification.messages.ERROR);
             }
         });
     });
@@ -85,6 +120,8 @@ $(document).ready(function(){
                 if(response.success) {
                     // let's just simply reload the page after adding data
                     location.reload();
+                } else {
+                    notification.error('Opps!', notification.messages.ERROR);
                 }
             });
         });
@@ -108,6 +145,8 @@ $(document).ready(function(){
                 if(response.success) {
                     // let's just simply reload the page after adding data
                     location.reload();
+                } else {
+                    notification.error('Opps!', notification.messages.ERROR);
                 }
             });
         }).modal().find('.modal-body').html(html);
