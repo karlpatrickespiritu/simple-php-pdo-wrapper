@@ -54,6 +54,13 @@ class DB {
     private $_sChainingQuery = "";
 
     /*
+     * bind variables used for chaining basic CRUD
+     *
+     * @var int
+     * */
+    private $_sChainingBindParams = [];
+
+    /*
      * types of DML(data manipulation language) in SQL
      *
      * @var int
@@ -248,12 +255,12 @@ class DB {
         $this->_sChainingQuery .= " VALUES (" . implode(", ", $aInsertValuesKeys) .")";
 
         // build bindparams
-        $aBindParams = [];
+        $this->_sChainingBindParams = [];
         foreach($aInsertValues as $key => $value) {
-            $aBindParams[":" . $key] = $value;
+            $this->_sChainingBindParams[":" . $key] = $value;
         }
 
-        return $this->query($this->_sChainingQuery, $aBindParams);
+        return $this->query($this->_sChainingQuery, $this->_sChainingBindParams);
     }
 
     /*
@@ -281,33 +288,49 @@ class DB {
     }
 
     /*
-     * TODO::builds SET values in UPDATE query
+     * builds set values on UPDATE query
      *
-     * @param   string  $sTable - table name
+     * @param   string  $aUpdateValues
      * @return  object  this class
      * */
-    public function set($sSet, $aBindParams) {}
+    public function set($aUpdateValues)
+    {
+        // build set
+        $this->_sChainingQuery .= " SET";
+        $iCountUpdateValues     = count($aUpdateValues);
+        $iCounter               = 0;
+
+        // make sure to empty chaining bind params
+        $this->_sChainingBindParams = [];
+
+        foreach ($aUpdateValues as $key => $value) {
+            $this->_sChainingQuery .= " $key = :$key" . (++$iCounter !== $iCountUpdateValues ? ",": "");
+            $this->_sChainingBindParams[":$key"] = $value;
+        }
+
+        return $this;
+    }
 
     /*
      * builds WHERE query
      *
      * @param   string  $sWhere       WHERE query
      * @param   array   $aBindParams  bind params
-     * @return  object  $this         this class
+     * @return  mixed
      * */
     public function where($sWhere, $aBindParams)
     {
-        $this->_sChainingQuery .= " WHERE $sWhere";
-        $iDML = $this->_checkDMLType($this->_sChainingQuery);
+        $this->_sChainingQuery       .= " WHERE $sWhere";
+        $this->_sChainingBindParams  += $aBindParams;
+        $iDML                         = $this->_checkDMLType($this->_sChainingQuery);
 
         switch($iDML) {
             case self::TYPE_DML_DELETE:
-                return $this->query($this->_sChainingQuery, $aBindParams);
+                return $this->query($this->_sChainingQuery, $this->_sChainingBindParams);
                 break;
 
-            // TODO:: update
             case self::TYPE_DML_UPDATE:
-                return $this->query($this->_sChainingQuery, $aBindParams);
+                return $this->query($this->_sChainingQuery, $this->_sChainingBindParams);
                 break;
 
             default:

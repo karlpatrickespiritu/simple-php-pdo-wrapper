@@ -16,11 +16,19 @@ $response 	= [
 // simply create a new instance of DB class
 $db = new DB();
 
-// execute update via query method. delete|insert|update queries returns number of affected rows
-$affectedRows = $db->query(
-    "UPDATE users SET name = :name, address = :address, email = :email WHERE id = :id",
-    [':id' => $id, ':name' => $name, ':address' => $address, ':email' => $email,]
-);
+/* OPTION 1 */
+//$affectedRows = $db->query(
+//    "UPDATE users SET name = :name, address = :address, email = :email WHERE id = :id",
+//    [':id' => $id, ':name' => $name, ':address' => $address, ':email' => $email,]
+//);
+
+/* OPTION 2 */
+$aUpdateValues = [
+    'name'      => $name,
+    'address'   => $address,
+    'email'     => $email
+];
+$affectedRows = $db->update('users')->set($aUpdateValues)->where('id = :id', [':id' => $id]);
 
 $response['success'] = $affectedRows > 0;
 
