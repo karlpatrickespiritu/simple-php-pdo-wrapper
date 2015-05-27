@@ -4,9 +4,7 @@ $base = '../../';
 require_once $base . 'config.php';
 require_once $base . 'libs/simple-php-pdo-class/DB.php';
 
-// you might need to clean POST requests.
-// but for the sake of the testing, just assign them directly.
-$id 		= $_POST['id'];
+$id 		= $aPOST['id'];
 $response 	= [
     'success' => false,
     'data' 	  => null,

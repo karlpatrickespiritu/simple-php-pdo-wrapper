@@ -7,7 +7,7 @@ class DB {
      *
      * @var array
      * */
-    protected $_aDBSettings = [];
+    private $_aDBSettings = [];
 
     /*
      * the PDO object variable that will be used throughout the class

@@ -14,9 +14,9 @@ $db = new DB();
 
 /* OPTION 1 */
 // $bindValues = [
-// 	':name' 	=> $_POST['name'],
-// 	':address' 	=> $_POST['address'],
-// 	':email' 	=> $_POST['email']
+// 	':name' 	=> $aPOST['name'],
+// 	':address' 	=> $aPOST['address'],
+// 	':email' 	=> $aPOST['email']
 // ];
 // $affectedRows = $db->query(
 // 	"INSERT INTO users (name, address, email)
@@ -26,9 +26,9 @@ $db = new DB();
 
 /* OPTION 2 */
 $insertValues = [
-    'name' 		=> $_POST['name'],
-    'address' 	=> $_POST['address'],
-    'email' 	=> $_POST['email']
+    'name' 		=> $aPOST['name'],
+    'address' 	=> $aPOST['address'],
+    'email' 	=> $aPOST['email']
 ];
 $affectedRows = $db->insert('users')->values($insertValues);
 
