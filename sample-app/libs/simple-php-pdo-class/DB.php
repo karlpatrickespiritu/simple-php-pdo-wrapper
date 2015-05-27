@@ -105,7 +105,7 @@ class DB {
 
         try {
             $this->_oPDO = new PDO(
-                'mysql:host=' . $this->_aDBSettings['host'] .  ';dbname=' . $this->_aDBSettings['dbname'],
+                'mysql:host=' . $this->_aDBSettings['host'] .  ';dbname=' . $this->_aDBSettings['dbname'] . ';charset=utf8',
                 $this->_aDBSettings['username'],
                 $this->_aDBSettings['password'],
                 $this->_aPDOAttributes
