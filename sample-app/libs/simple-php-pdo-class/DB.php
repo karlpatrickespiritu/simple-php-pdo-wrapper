@@ -38,6 +38,13 @@ class DB {
     private $_iLastInsertID = 0;
 
     /*
+     * last query
+     *
+     * @var string
+     * */
+    private $_sLastQuery= '';
+
+    /*
      * default pdo attributes
      *
      * @var array
@@ -145,8 +152,9 @@ class DB {
             $this->_connect();
 
         try {
-            $this->_oSth = $this->_oPDO->prepare($sSQL);
-            $iDMLType    = $this->_checkDMLType($sSQL);
+            $this->_oSth        = $this->_oPDO->prepare($sSQL);
+            $iDMLType           = $this->_checkDMLType($sSQL);
+            $this->_sLastQuery  = $sSQL;
 
             // execute statement handle with bindparams (if any)
             !empty($aBindParams) ? $this->_oSth->execute($aBindParams): $this->_oSth->execute();
@@ -346,6 +354,16 @@ class DB {
     public function getLastInsertID()
     {
         return $this->_iLastInsertID;
+    }
+
+    /*
+     * return the last query
+     *
+     * @return string  the last query
+     * */
+    public function getLastQuery()
+    {
+        return $this->_sLastQuery;
     }
 
     /*
