@@ -12,11 +12,11 @@
         <tbody>
         <?php foreach ($users as $user) { ?>
             <tr>
-                <td><?php echo $user['id'] ?></td>
-                <td><?php echo $user['name'] ?></td>
-                <td><?php echo $user['address'] ?></td>
-                <td><?php echo $user['email'] ?></td>
-                <td>
+                <td for="id"><?php echo $user['id'] ?></td>
+                <td for="name"><?php echo $user['name'] ?></td>
+                <td for="address"><?php echo $user['address'] ?></td>
+                <td for="email"><?php echo $user['email'] ?></td>
+                <td for="buttons">
                     <div class="btn-group">
                         <button type="button" class="btn btn-default show-edit-form" data-user='<?php echo json_encode($user); ?>'>
                             <span class="glyphicon glyphicon-edit"></span>

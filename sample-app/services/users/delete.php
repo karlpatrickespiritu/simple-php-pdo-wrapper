@@ -14,12 +14,7 @@ $response 	= [
 // simply create a new instance of DB class
 $db = new DB();
 
-/* OPTION 1 */
-// $affectedRows = $db->query("DELETE FROM users WHERE id = :id", ['id' => $id]);
-
-/* OPTION 2 */
-$affectedRows = $db->delete('users')->where('id = :id', [':id' => $id]);
-
+$affectedRows 		 = $db->delete('users')->where('id = :id', [':id' => $id]);
 $response['success'] = $affectedRows > 0;
 
 // generate response

@@ -12,19 +12,6 @@ $response 	= [
 // simply create a new instance of DB class
 $db = new DB();
 
-/* OPTION 1 */
-// $bindValues = [
-// 	':name' 	=> $aPOST['name'],
-// 	':address' 	=> $aPOST['address'],
-// 	':email' 	=> $aPOST['email']
-// ];
-// $affectedRows = $db->query(
-// 	"INSERT INTO users (name, address, email)
-// 	 VALUES (:name, :address, :email)",
-// 	$bindValues
-// );
-
-/* OPTION 2 */
 $insertValues = [
     'name' 		=> $aPOST['name'],
     'address' 	=> $aPOST['address'],

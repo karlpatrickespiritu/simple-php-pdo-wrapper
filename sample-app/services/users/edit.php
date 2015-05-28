@@ -16,21 +16,18 @@ $response 	= [
 // simply create a new instance of DB class
 $db = new DB();
 
-/* OPTION 1 */
-//$affectedRows = $db->query(
-//    "UPDATE users SET name = :name, address = :address, email = :email WHERE id = :id",
-//    [':id' => $id, ':name' => $name, ':address' => $address, ':email' => $email,]
-//);
-
-/* OPTION 2 */
 $aUpdateValues = [
     'name'      => $name,
     'address'   => $address,
     'email'     => $email
 ];
-$affectedRows = $db->update('users')->set($aUpdateValues)->where('id = :id', [':id' => $id]);
+$iAffectedRows = $db->update('users')->set($aUpdateValues)->where('id = :id', [':id' => $id]);
 
-$response['success'] = $affectedRows > 0;
+if($iAffectedRows > 0) {
+    $user = $db->fetchRow("SELECT * FROM users WHERE id = :id", [':id' => $id]);
+    $response['success'] 		= true;
+    $response['data']['user']   = $user;
+}
 
 // generate response
 echo json_encode($response); exit;

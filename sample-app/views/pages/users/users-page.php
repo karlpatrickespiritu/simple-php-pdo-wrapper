@@ -26,24 +26,26 @@
                     </div>
 
                     <form name="add-user">
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" name="name" required class="form-control" placeholder="Enter name">
+                        <fieldset>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" name="name" required class="form-control" placeholder="Enter name">
+                                </div>
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <input type="text" name="address" required class="form-control" placeholder="Enter address">
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" name="email" required class="form-control" placeholder="Enter email">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label>Address</label>
-                                <input type="text" name="address" required class="form-control" placeholder="Enter address">
+                            <div class="modal-footer">
+                                <a class="btn btn-default" data-dismiss="modal">Cancel</a>
+                                <button type="submit" class="btn btn-primary">Add</button>
                             </div>
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" name="email" required class="form-control" placeholder="Enter email">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <a class="btn btn-default" data-dismiss="modal">Cancel</a>
-                            <button type="submit" class="btn btn-primary">Add</button>
-                        </div>
+                        </fieldset>
                     </form>
 
                 </div><!-- /.modal-content -->
@@ -98,7 +100,7 @@
                     </div>
                     <div class="modal-footer">
                         <a class="btn btn-default" data-dismiss="modal">Cancel</a>
-                        <a class="btn btn-primary btn-delete-user" data-id="">Delete</a>
+                        <a class="btn btn-primary btn-delete-user">Delete</a>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
