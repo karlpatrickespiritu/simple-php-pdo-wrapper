@@ -347,6 +347,37 @@ class DB {
     }
 
     /*
+     * Start a PDO transaction
+     *
+     * @return PDO beginTransaction method
+     * */
+    public function beginTransaction()
+    {
+        return $this->_oPDO->beginTransaction();
+    }
+
+    /*
+     * Commit a transaction
+     *
+     * @return PDO commit method
+     * */
+    public function commit()
+    {
+        return $this->_oPDO->commit();
+    }
+
+    /*
+     * RollBack a transaction
+     *
+     * @return PDO rollBack method
+     * */
+    public function rollBack()
+    {
+        return $this->_oPDO->rollBack();
+    }
+
+
+    /*
      * return the last inserted id
      *
      * @return int
