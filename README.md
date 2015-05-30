@@ -40,9 +40,10 @@ $users = $db->fetchRows('SELECT * FROM users', [], PDO::FETCH_CLASS);
 #### FETCH SIGLE ROW
 _This always returns only a single row from the result set._
 ```php
-$users = $db->fetchRow('SELECT * FROM users WHERE id = :id', [':id' => 68]);
-
-$users = $db->fetchRow('SELECT * FROM users WHERE id = :id', [':id' => 68]);
+$users = $db->fetchRow(
+            'SELECT * FROM users WHERE id = :id AND status = :status',
+            [':id' => 68, ':status' => 'active']
+        );
 ```
 
 #### INSERT
