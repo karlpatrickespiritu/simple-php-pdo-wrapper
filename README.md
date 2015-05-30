@@ -1,4 +1,4 @@
-# Simple-PHP-PDO-Wrapper-Class
+# Simple-PHP-PDO-Wrapper-Class (Stil in Development)
 A simple database wrapper class in **PHP** using **PDO/MYSQL** extension.
 ### How to Get Started
 - - - -
