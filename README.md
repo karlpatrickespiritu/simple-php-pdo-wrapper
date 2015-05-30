@@ -25,12 +25,24 @@ Below are examples on how to use the very most basic and easy chaining **CRUD** 
 #### FETCH ROWS
 _Returns an array containing all of the result set._
 ```php
+// example #1
 $users = $db->fetchRows('SELECT * FROM users');
+
+// example #2 with bind params.
+$users = $db->fetchRows('SELECT * FROM users WHERE status = :status', [':status' => 'valid']);
+
+// example #3 with bind params and fetchtype (see http://php.net/manual/en/pdostatement.fetch.php)
+$users = $db->fetchRows('SELECT * FROM users WHERE status = :status', [':status' => 'valid'], PDO::FETCH_OBJ);
+
+// example #4 without bindparams but with fetchtype
+$users = $db->fetchRows('SELECT * FROM users', [], PDO::FETCH_CLASS);
 ```
 #### FETCH SIGLE ROW
 _This always returns only a single row from the result set._
 ```php
-$users = $db->fetchRows('SELECT * FROM users ORDER BY id DESC');
+$users = $db->fetchRow('SELECT * FROM users WHERE id = :id', [':id' => 68]);
+
+$users = $db->fetchRow('SELECT * FROM users WHERE id = :id', [':id' => 68]);
 ```
 
 #### INSERT
