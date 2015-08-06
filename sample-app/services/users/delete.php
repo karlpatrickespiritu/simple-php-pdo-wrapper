@@ -4,7 +4,7 @@ $base = '../../';
 require_once $base . 'config.php';
 require_once $base . 'libs/simple-php-pdo-class/DB.php';
 
-$id 		= $aPOST['id'];
+$id 		= $_POST['id'];
 $response 	= [
     'success' => false,
     'data' 	  => null,

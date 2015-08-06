@@ -13,9 +13,9 @@ $response 	= [
 $db = new DB();
 
 $insertValues = [
-    'name' 		=> $aPOST['name'],
-    'address' 	=> $aPOST['address'],
-    'email' 	=> $aPOST['email']
+    'name' 		=> $_POST['name'],
+    'address' 	=> $_POST['address'],
+    'email' 	=> $_POST['email']
 ];
 $affectedRows = $db->insert('users')->values($insertValues);
 

@@ -4,10 +4,10 @@ $base = '../../';
 require_once $base . 'config.php';
 require_once $base . 'libs/simple-php-pdo-class/DB.php';
 
-$id	 		= $aPOST['id'];
-$name 		= $aPOST['name'];
-$address 	= $aPOST['address'];
-$email 		= $aPOST['email'];
+$id	 		= $_POST['id'];
+$name 		= $_POST['name'];
+$address 	= $_POST['address'];
+$email 		= $_POST['email'];
 $response 	= [
     'success' => false,
     'data' 	  => null,
