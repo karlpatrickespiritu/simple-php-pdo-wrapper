@@ -1,5 +1,7 @@
 <?php
 
+/* TODO::Make a new one :/ */
+
 class DB {
 
     /*
