@@ -1,8 +1,6 @@
 # Simple-PHP-PDO-Wrapper-Class
 A simple database wrapper class in **PHP** using **PDO/MYSQL** extension.
 
-### (NOTE: No longer maintained)
-
 ### How to Get Started
 - - - -
 Set up database connection on **db_settings.ini.php** file, like so.
