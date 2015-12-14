@@ -1,3 +1,6 @@
+> **NOTE**:
+> THIS REPO IS CURRENTLY ON A REWRITE TO BE A BETTER PLUGIN. STAY TUNED! <3
+
 # Simple-PHP-PDO-Wrapper-Class
 A simple database wrapper class in **PHP** using **PDO/MYSQL** extension.
 
