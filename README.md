@@ -1,1 +1,0 @@
-wrapper for PDO/MySql extension
