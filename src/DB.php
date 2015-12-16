@@ -101,6 +101,18 @@ class DB
         }
     }
 
+
+    /**
+    * Executes `Update`, 'Insert' and 'Delete' queries.
+    *
+    * @param   string  $sSQL
+    * @return  mixed
+    * */    
+    public function exec($sSQL = '', $aBindParams = []) 
+    {
+        return $this->_query($sSQL, $aBindParams);
+    }
+
     /**
      * returns a single row from the results set
      * @see http://php.net/manual/en/pdostatement.fetch.php
