@@ -2,7 +2,6 @@
     "name": "php-pdo",
     "description": "a wrapper for php's pdo extension",
     "require": {
-        "phpunit/phpunit": "^5.1"
     },
     "license": "MIT",
     "authors": [
@@ -10,5 +9,8 @@
             "name": "karlpatrickespiritu",
             "email": "wiwa.espiritu@gmail.com"
         }
-    ]
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^5.1"
+    }
 }

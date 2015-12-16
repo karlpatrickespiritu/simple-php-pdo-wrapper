@@ -50,10 +50,11 @@ class DB
         $this->_aConfig = require_once 'DB.config.php';
         $this->_aPDOAttributes = $this->_aConfig['PDO_ATTRIBUTES'];
         $this->_aDBSettings = $this->_aConfig['DB_CONFIG'];
-        $sDsn = 'mysql:host=' . $this->_aDBSettings['host'] . ';dbname=' . $this->_aDBSettings['dbname'] . ';charset=utf8';
+
+        $sDSN = 'mysql:host=' . $this->_aDBSettings['host'] . ';dbname=' . $this->_aDBSettings['dbname'] . ';charset=utf8';
 
         try {
-            $this->_oPDO = new \PDO($sDsn, $this->_aDBSettings['username'], $this->_aDBSettings['password'], $this->_aPDOAttributes);
+            $this->_oPDO = new \PDO($sDSN, $this->_aDBSettings['username'], $this->_aDBSettings['password'], $this->_aPDOAttributes);
             $this->_bConnected = true;
         } catch (\PDOException $oException) {
             throw new \PDOException($oException->getMessage());
@@ -83,9 +84,12 @@ class DB
         try {
             $this->_oSth = $this->_oPDO->prepare($sSQL);
             $this->_sLastQuery = $sSQL;
-            $iFetchType = $this->_iFetchMode !== null ? $this->_iFetchMode: $iFetchType;
+            $iFetchType = ($this->_iFetchMode !== null) ? $this->_iFetchMode: $iFetchType;
 
-            (is_array($aBindParams) && !empty($aBindParams)) ? $this->_oSth->execute($aBindParams) : $this->_oSth->execute();
+            if (is_array($aBindParams) && !empty($aBindParams))
+                $this->_oSth->execute($aBindParams);
+            else
+                $this->_oSth->execute();
 
             if ($this->_checkDMLType($sSQL) === self::TYPE_DML_SELECT)
                 return $iFetchRowType == self::TYPE_ROW_MULTIPLE ? $this->_oSth->fetchAll($iFetchType) : $this->_oSth->fetch($iFetchType);
@@ -93,7 +97,7 @@ class DB
                 return $this->_oSth->rowCount();
 
         } catch (\PDOException $oException) {
-            throw new \PDOException("PDO Exception: {$oException->getMessage()}");
+            throw new \PDOException($oException->getMessage());
         }
     }
 
