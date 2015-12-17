@@ -187,12 +187,12 @@ class DB
         return $this->_oPDO->rollBack();
     }
 
-    public function lastId()
+    public function getLastId()
     {
         return $this->_oPDO->lastInsertId();
     }
 
-    public function lastQuery()
+    public function getLastQuery()
     {
         return $this->_sLastQuery;
     }

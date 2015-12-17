@@ -1,0 +1,14 @@
+<dataset>
+    <table name="sections">
+        <column>id</column>
+        <column>name</column>
+        <row>
+            <value>1</value>
+            <value>Foo</value>
+        </row>
+        <row>
+            <value>2</value>
+            <value>Bar</value>
+        </row>
+    </table>
+</dataset>
