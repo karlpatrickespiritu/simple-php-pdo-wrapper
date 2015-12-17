@@ -9,7 +9,7 @@ return [
     'DB_CONFIG' => [
         'host' => 'localhost',
         'port' => '',
-        'dbname' => 'simple_php_pdo_class',
+        'dbname' => 'mobileco2',
         'username' => 'root',
         'password' => ''
     ],

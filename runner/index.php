@@ -4,8 +4,16 @@ require_once 'config.php';
 
 use PHPPDO\DB;
 
-$type = 'update';
+$type = 'select';
 
+if ($type === 'select') {
+    DB::i()->setFetchMode(PDO::FETCH_OBJ);
+    // $data = DB::i()->fetchRows('SELECT * FROM projects LIMIT 3');
+    $data = DB::i()->fetch('SELECT * FROM projects WHERE id = :id', [':id' => 1]);
+
+    dd(DB::i()->getRowCount(), $data);
+}
+return;
 if ($type === 'insert') {
 	DB::i()->exec(
 		"INSERT INTO `users`(`name`, `address`, `email`) VALUES (?, ?, ?)",
@@ -27,22 +35,14 @@ if ($type === 'delete') {
 } 
 
 if ($type === 'update') {
-	DB::i()->exec(
-		"UPDATE `users` SET name = ?, email = ? WHERE id = ?", 
-		["nick", "nick@nick.com", 98]
-	);
+    DB::i()->exec(
+        "UPDATE `users` SET name = ?, email = ? WHERE id = ?",
+        ["nick", "nick@nick.com", 98]
+    );
 
-	DB::i()->exec("UPDATE `users` SET name = :name, email = :email WHERE id = :id", [
-		":name" => "clyde", 
-		":email" => "clyde@clyde.com",
-		":id" => 97
-	]);
-}
-
-if ($type === 'select') {
-	DB::i()->setFetchMode(PDO::FETCH_OBJ);
-	// $data = DB::i()->fetchRows('SELECT * FROM projects LIMIT 3');
-	$data = DB::i()->fetch('SELECT * FROM projects WHERE id = :id', [':id' => 1], PDO::FETCH_ASSOC);
-
-	dd(DB::i()->getRowCount(), $data);
+    DB::i()->exec("UPDATE `users` SET name = :name, email = :email WHERE id = :id", [
+        ":name" => "clyde",
+        ":email" => "clyde@clyde.com",
+        ":id" => 97
+    ]);
 }

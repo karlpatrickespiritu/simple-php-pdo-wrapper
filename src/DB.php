@@ -77,37 +77,42 @@ class DB
      * @param   int     $iFetchRowType  determines what statement handle uses. either fetch() or fetchAll().
      * @return  mixed
      * */
-    private function _query($sSQL = '', $aBindParams = [], $iFetchType = \PDO::FETCH_ASSOC, $iFetchRowType = self::TYPE_ROW_MULTIPLE)
+    private function _query($sSQL = '', $aBindParams = [], $iFetchType = null, $iFetchRowType = self::TYPE_ROW_MULTIPLE)
     {
         if (!$this->_bConnected) $this->_connect();
 
         try {
             $this->_oSth = $this->_oPDO->prepare($sSQL);
             $this->_sLastQuery = $sSQL;
-            $iFetchType = ($this->_iFetchMode !== null) ? $this->_iFetchMode: $iFetchType;
 
-            if (is_array($aBindParams) && !empty($aBindParams))
+            if ($iFetchType === null) {
+                $iFetchType = ($this->_iFetchMode !== null) ? $this->_iFetchMode: \PDO::FETCH_ASSOC;
+            }
+
+            if (is_array($aBindParams) && !empty($aBindParams)) {
                 $this->_oSth->execute($aBindParams);
-            else
+            } else {
                 $this->_oSth->execute();
+            }
 
-            if ($this->_checkDMLType($sSQL) === self::TYPE_DML_SELECT)
+            if ($this->_checkDMLType($sSQL) === self::TYPE_DML_SELECT) {
                 return $iFetchRowType == self::TYPE_ROW_MULTIPLE ? $this->_oSth->fetchAll($iFetchType) : $this->_oSth->fetch($iFetchType);
-            else
+            } else {
                 return $this->_oSth->rowCount();
+            }
 
         } catch (\PDOException $oException) {
             throw new \PDOException($oException->getMessage());
         }
     }
 
-
     /**
-    * Executes `Update`, 'Insert' and 'Delete' queries.
-    *
-    * @param   string  $sSQL
-    * @return  mixed
-    * */    
+     * Executes `Update`, 'Insert' and 'Delete' queries.
+     *
+     * @param string $sSQL
+     * @param array $aBindParams
+     * @return mixed
+     */
     public function exec($sSQL = '', $aBindParams = []) 
     {
         return $this->_query($sSQL, $aBindParams);
@@ -122,7 +127,7 @@ class DB
      * @param   int     $iFetchType
      * @return  mixed
      * */
-    public function fetch($sSQL = '', $aBindParams = [], $iFetchType = \PDO::FETCH_ASSOC)
+    public function fetch($sSQL = '', $aBindParams = [], $iFetchType = null)
     {
         return $this->_query($sSQL, $aBindParams, $iFetchType, self::TYPE_ROW_SINGLE);
     }
@@ -136,14 +141,16 @@ class DB
      * @param   int     $iFetchType
      * @return  mixed
      * */
-    public function fetchRows($sSQL = '', $aBindParams = [], $iFetchType = \PDO::FETCH_ASSOC)
+    public function fetchRows($sSQL = '', $aBindParams = [], $iFetchType = null)
     {
         return $this->_query($sSQL, $aBindParams, $iFetchType, self::TYPE_ROW_MULTIPLE);
     }
 
     public function setFetchMode($iFetchType = null)
     {
-        if ($iFetchType === null) throw new \InvalidArgumentException("Expected fetch mode is invalid. See all valid fetch mode at http://php.net/manual/en/pdostatement.setfetchmode.php");
+        if ($iFetchType === null) {
+            throw new \InvalidArgumentException("Expected fetch mode is invalid. See all valid fetch mode at http://php.net/manual/en/pdostatement.setfetchmode.php");
+        }
 
         $this->_iFetchMode = $iFetchType;
 
