@@ -1,9 +1,6 @@
 <?php
 
-/*======== This is just a test runner file :) =======*/
 
-ini_set('default_charset', 'utf-8');
-// ERRORS
 error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 ini_set('display_errors', 'On');
 
@@ -24,5 +21,3 @@ if (!function_exists('dd')) {
 }
 
 include_once '../vendor/autoload.php';
-
-/*==================================*/

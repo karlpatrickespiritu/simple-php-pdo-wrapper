@@ -9,7 +9,7 @@ return [
     'DB_CONFIG' => [
         'host' => 'localhost',
         'port' => '',
-        'dbname' => 'simple_php_pdo_class',
+        'dbname' => 'simple_php_pdo_wrapper',
         'username' => 'root',
         'password' => ''
     ],
