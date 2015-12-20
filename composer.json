@@ -1,5 +1,5 @@
 {
-    "name": "simple-php-pdo-wrapper",
+    "name": "karlespiritu/simple-php-pdo-wrapper",
     "description": "a wrapper for php's pdo extension",
     "require": {
         "php": ">=5.1.0"
