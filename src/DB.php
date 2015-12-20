@@ -1,8 +1,8 @@
 <?php
 
-namespace PHPPDO;
+namespace PDO;
 
-class DB
+class DB implements Contracts\DatabaseConnection
 {
     private $_aConfig = [];
     private $_aDBSettings = [];
@@ -30,14 +30,16 @@ class DB
     {
         static $instance = null;
 
-        if (null === $instance) $instance = new static();
+        if (null === $instance)  {
+            $instance = new static();
+        }
 
         return $instance;
     }
 
     public function __construct()
     {
-        $this->_connect();
+        $this->connect();
     }
 
     public function __destruct()
@@ -45,7 +47,7 @@ class DB
         $this->disconnect();
     }
 
-    private function _connect()
+    public function connect()
     {
         $this->_aConfig = require_once 'DB.config.php';
         $this->_aPDOAttributes = $this->_aConfig['PDO_ATTRIBUTES'];
@@ -69,6 +71,16 @@ class DB
     }
 
     /**
+    * returns the PDO instance
+    *
+    * @return PDO instance
+    */
+    public function getConnection() 
+    {
+        return $this->_oPDO;
+    }
+
+    /**
      * this method executes a query with optional bind parameters, fetch type and fetching number of rows
      *
      * @param   string  $sSQL
@@ -79,7 +91,7 @@ class DB
      * */
     private function _query($sSQL = '', $aBindParams = [], $iFetchType = null, $iFetchRowType = self::TYPE_ROW_MULTIPLE)
     {
-        if (!$this->_bConnected) $this->_connect();
+        if (!$this->_bConnected) $this->connect();
 
         try {
             $this->_oSth = $this->_oPDO->prepare($sSQL);
@@ -206,14 +218,15 @@ class DB
      * */
     private function _checkDMLType($sSQL)
     {
-        if (strpos($sSQL, 'SELECT') !== false)
+        if (strpos($sSQL, 'SELECT') !== false) {
             return self::TYPE_DML_SELECT;
-        elseif (strpos($sSQL, 'INSERT') !== false)
+        } elseif (strpos($sSQL, 'INSERT') !== false) {
             return self::TYPE_DML_INSERT;
-        elseif (strpos($sSQL, 'UPDATE') !== false)
+        } elseif (strpos($sSQL, 'UPDATE') !== false) {
             return self::TYPE_DML_UPDATE;
-        elseif (strpos($sSQL, 'DELETE') !== false)
+        } elseif (strpos($sSQL, 'DELETE') !== false) {
             return self::TYPE_DML_DELETE;
+        }
 
         return false;
     }

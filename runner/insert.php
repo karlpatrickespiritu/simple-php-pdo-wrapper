@@ -2,7 +2,7 @@
 
 require_once 'config.php';
 
-use PHPPDO\DB;
+use PDO\DB;
 
 DB::i()->exec(
     "INSERT INTO `users`(`name`, `address`, `email`) VALUES (?, ?, ?)",

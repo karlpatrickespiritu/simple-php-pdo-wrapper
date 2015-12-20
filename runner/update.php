@@ -2,7 +2,7 @@
 
 require_once 'config.php';
 
-use PHPPDO\DB;
+use PDO\DB;
 
 DB::i()->exec(
     "UPDATE `users` SET name = ?, email = ? WHERE id = ?",

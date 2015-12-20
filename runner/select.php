@@ -2,7 +2,7 @@
 
 require_once 'config.php';
 
-use PHPPDO\DB;
+use PDO\DB;
 
 DB::i()->setFetchMode(PDO::FETCH_OBJ);
 // $data = DB::i()->fetchRows('SELECT * FROM projects LIMIT 3');

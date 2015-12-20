@@ -23,6 +23,6 @@ if (!function_exists('dd')) {
     }
 }
 
-include_once '../src/DB.php';
+include_once '../vendor/autoload.php';
 
 /*==================================*/
