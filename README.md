@@ -48,7 +48,7 @@ And that's it, you're good to go!
 Usage
 --------
 
-### Namespace
+#### Namespace
 Make sure that this namespace is declared every time using the singleton `DB` class.
 ```php
 use PDO\DB;
