@@ -48,7 +48,7 @@ And that's it, you're good to go!
 Usage
 --------
 
-#### Namespace
+### Namespacing
 Make sure that this namespace is declared every time using the singleton `DB` class.
 ```php
 use PDO\DB;
@@ -63,6 +63,19 @@ $singleRow = DB::i()->fetch('SELECT * FROM `users` WHERE `name` = :name', ['name
 Fetch a multiple rows in the result set
 ```php
 $multipleRows = DB::i()->fetchRows('SELECT * FROM `users`');
+```
+
+Extras
+```php
+$multipleRows = DB::i()->fetchRows('SELECT * FROM `users`');
+
+$rows = DB::i()->getRowCount(); // get the number of rows returned
+
+$columns = DB::i()->getColumnCount(); // get the number of columns per row
+
+var_dump($multipleRows);
+var_dump($rows);
+var_dump($columns);
 ```
 
 #### Insertion
