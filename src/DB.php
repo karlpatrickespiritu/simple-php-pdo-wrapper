@@ -37,12 +37,12 @@ class DB implements Contracts\DatabaseConnection
         return $instance;
     }
 
-    public function __construct()
+    private function __construct()
     {
         $this->connect();
     }
 
-    public function __destruct()
+    private function __destruct()
     {
         $this->disconnect();
     }
