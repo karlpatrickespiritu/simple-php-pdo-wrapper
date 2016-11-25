@@ -2,6 +2,10 @@
 
 a wrapper for php's pdo extension.
 
+NO LONGER MAINTAINED. (Please use Laravel's Eloquent: https://laracasts.com/lessons/how-to-use-eloquent-outside-of-laravel )
+
+--------
+
 
 Installation
 --------
